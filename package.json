@@ -49,5 +49,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "zyppd-bits": "^1.0.1"
+  }
 }
