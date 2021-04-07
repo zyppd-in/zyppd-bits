@@ -1,6 +1,7 @@
 # zyppd-bits
 
-> Made with create-react-library
+> A library of components, created for zyppd.in, made with create-react-library by [Oliver Meredith](https://www.olivermeredith.com) 
+
 
 [![NPM](https://img.shields.io/npm/v/zyppd-bits.svg)](https://www.npmjs.com/package/zyppd-bits) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
