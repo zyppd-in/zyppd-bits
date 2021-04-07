@@ -173,7 +173,6 @@ export const PrimaryBtn = (props) => {
 
 
 const SBtn = styled(Btn)`
-    // background: ${({ theme }) => theme.middleground};
     background: ${({ theme }) => theme.foreground};
     box-shadow: none;  
     border: ${({ theme }) => `1px solid ${chroma(theme.middleground).darken(0.5)}`};
@@ -230,54 +229,21 @@ export const SecondaryBtn = (props) => {
 }
 
 
-// export const SecondaryBtn = ({
-//   children,
-//   onClick,
-//   disabled,
-//   style,
-//   forward = false,
-//   backward = false,
-//   warning = false,
-//   fullWidth = false,
-//   waiting = false,
-// }, props) => {
+export const Tabs = styled.button`
+  width: 100%;
+  display: flex;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius};
+`
 
-
-//   return (
-//     <SBtn onClick={onClick} className={`
-// ${ disabled ? 'disabled' : ''}
-// ${ forward ? 'forward' : ''}
-// ${ backward ? 'backward' : ''}
-// ${ warning ? 'warning' : ''}
-// ${ fullWidth ? 'fullWidth' : ''}
-// `}
-//       style={style && { ...style }}>
-
-//       {props.waiting === true ?
-//         <Spinner /> :
-//         <React.Fragment>
-//           {props.backward &&
-//             <LeftChevron />
-//           }
-//           {props.children}
-//           {props.forward &&
-//             <RightChevron />
-//           }
-//         </React.Fragment>
-//       }
-//       {/* {backward &&
-//         <LeftChevron />
-//       }
-//       <span>
-//         {children}
-//       </span>
-//       {forward &&
-//         <RightChevron />
-//       } */}
-//     </SBtn>
-//   )
-// }
-
+export const Tab = styled.button`
+  border: none;
+  flex: 1;
+  padding: 1em .5em;
+  border-bottom: .25em solid ${({ theme }) => theme.brandColor};
+  background: ${({ theme, active }) => active ? theme.brandColor : theme.backgroundColor};
+  color: ${({ theme, active }) => active ? chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke' : theme.textColor};
+  `
 
 // Not finished
 const IconButton = styled.button`

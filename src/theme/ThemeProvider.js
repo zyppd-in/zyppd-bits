@@ -91,18 +91,12 @@ export const ZyppdComponents = ({ brandColor = '#43E896', range = ["#fafafa", "#
 
             <GlobalStyle />
 
-            {/* <ToastProvider
-                autoDismiss
-                autoDismissTimeout={toastDuration}
-                components={{ Toast: ToastItem }}
-                placement={toastPosition}
-            > */}
+
             <ModalsProvider
                 test={"test"}
             >
                 {children}
             </ModalsProvider>
-            {/* </ToastProvider> */}
         </ThemeProvider>
 
     )

@@ -3,13 +3,9 @@ import chroma from 'chroma-js'
 // import ThemeSelector from './ThemeSelector'
 
 import {
-  Themes, themeCreator, H1, H2, H3, H4, H5, P, Subtitle, Title, PrimaryBtn, SecondaryBtn, Spinner, useToast,
+  Themes, themeCreator, H1, H2, H3, H4, H5, P, Subtitle, Title, PrimaryBtn, SecondaryBtn, Tabs, Tab, Spinner, useToast,
   IconBtn, Modal, Notification, Message, Group, ZyppdComponents, ListItem, SubtleListItem,
   Input, Checkbox, Select, Option,
-  // Hamburger, RightArrow, PhoneIcon, FingerprintIcon,
-  // RightChevron, UpChevron, DownChevron, EmailIcon, PersonIcon, LocationIcon, ShopIcon, FaceIcon,
-  // EditIcon, InstagramIcon, TwitterIcon, FacebookIcon, StarIcon,
-  // LeftChevron, JobIcon, 
   Progress, Pill, Checklist, TextArea,
   PaletteIcon, PeopleIcon, PlusIcon, ReadMoreIcon, useWindowSize,
   Footer, OneOffNotification, useCheck, ModalsContext, AddToCalendar, Skeleton
@@ -140,7 +136,6 @@ const App = () => {
           padding: '1em',
           margin: '0 auto'
         }}
-        className="zyppd-background"
       >
 
 
@@ -361,6 +356,15 @@ const App = () => {
             </SecondaryBtn>
           </div>
 
+
+
+          <div className="item">
+            <p>Parent: Tabs, children: Tab</p>
+            <Tabs>
+              <Tab>One</Tab>
+              <Tab active={true}>Two</Tab>
+            </Tabs>
+          </div>
 
         </Group>
 
