@@ -238,10 +238,11 @@ export const Tabs = styled.button`
 
 export const Tab = styled.button`
   border: none;
+  font-family: Quicksand, Helvetica, sans-serif;
   flex: 1;
   padding: 1em .5em;
   border-bottom: .25em solid ${({ theme }) => theme.brandColor};
-  background: ${({ theme, active }) => active ? theme.brandColor : theme.backgroundColor};
+  background: ${({ theme, active }) => active ? theme.brandColor : theme.foreground};
   color: ${({ theme, active }) => active ? chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke' : theme.textColor};
   `
 
