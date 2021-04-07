@@ -239,12 +239,13 @@ export const Tabs = styled.button`
 export const Tab = styled.button`
   border: none;
   font-family: Quicksand, Helvetica, sans-serif;
+  font-weight: ${({ active }) => active ? '700' : '400'};
   flex: 1;
   padding: 1em .5em;
-  border-bottom: .25em solid ${({ theme }) => theme.brandColor};
-  background: ${({ theme, active }) => active ? theme.brandColor : theme.foreground};
+  background: ${({ theme }) => theme.background};
+  border-bottom: ${({ active, theme }) => active ? `.25em solid  ${theme.brandColor}` : `.25em solid ${theme.middleground}`};
   color: ${({ theme, active }) => active ? chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke' : theme.textColor};
-  `
+`
 
 // Not finished
 const IconButton = styled.button`
