@@ -229,7 +229,7 @@ export const SecondaryBtn = (props) => {
 }
 
 
-export const Tabs = styled.button`
+export const Tabs = styled.div`
   width: 100%;
   display: flex;
   border: none;
