@@ -10,9 +10,6 @@ export { Spinner } from './components/spinners'
 export { ListItem, SubtleListItem } from './components/lists'
 export {
     Modal,
-    // useModal,
-    // Toast,
-    // useToast,
     Shade,
     Notification,
     OneOffNotification
@@ -21,20 +18,18 @@ export {
     Input,
     inputValidation,
     Select,
-    // Option,
     Checkbox,
     Progress,
-    // CheckBtn,
     TextArea
 } from './components/form'
 // export { useToasts } from 'react-toast-notifications'
 export { Message } from './components/messages'
 export { AddToCalendar } from './components/calendars'
 export { useWindowSize, useLocalStorage, useCheck } from './hooks'
+export { priceToString } from './helpers/priceToString'
 export { Pill } from './components/pills'
 export { Footer } from './components/footer'
 export { Skeleton } from './components/skeleton'
 export {
     Themes,
-    // themeCreator 
 } from './theme/themes'

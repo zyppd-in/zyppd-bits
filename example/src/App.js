@@ -8,7 +8,8 @@ import {
   Input, Checkbox, Select, Option,
   Progress, Pill, Checklist, TextArea,
   PaletteIcon, PeopleIcon, PlusIcon, ReadMoreIcon, useWindowSize,
-  Footer, OneOffNotification, useCheck, ModalsContext, AddToCalendar, Skeleton
+  Footer, OneOffNotification, useCheck, ModalsContext, AddToCalendar, Skeleton,
+  priceToString
 } from 'zyppd-bits'
 // import MaterialIcon, { colorPalette } from 'material-icons-react';
 
@@ -838,76 +839,11 @@ const App = () => {
             </Pill>
           </div>
         </Group>
-        {/* 
+
+        <h1>Helpers</h1>
         <Group>
-          <h2 className="section-title">Icons</h2>
-          <p>RightArrow</p>
-          <RightArrow />
-          <p>RightChvevron</p>
-          <RightChevron />
-          <p>LeftChevron</p>
-          <LeftChevron />
-          <p>DownChevron</p>
-          <DownChevron />
-          <p>UpChevron</p>
-          <UpChevron />
-          <p>Tick</p>
-          <Tick />
-          <p>Cross</p>
-          <Cross />
-          <p>PaletteIcon</p>
-          <PaletteIcon />
-          <p>LeftChevron</p>
-          <LeftChevron />
-          <p>SwapHorizontle</p>
-          <SwapHorizontle />
-          <p>Cog</p>
-          <Cog />
-          <p>PeopleIcon</p>
-          <PeopleIcon />
-          <p>ClockIcon</p>
-          <ClockIcon />
-          <p>FingerprintIcon</p>
-          <FingerprintIcon />
-          <p>DashboardIcon</p>
-          <DashboardIcon />
-          <p>ReadMoreIcon</p>
-          <ReadMoreIcon />
-          <p>PlusIcon</p>
-          <PlusIcon />
-          <p>EditIcon</p>
-          <EditIcon />
-          <p>PasswordIcon</p>
-          <PasswordIcon />
-          <p>LocationIcon</p>
-          <LocationIcon />
-          <p>SearchIcon</p>
-          <SearchIcon />
-          <p>CalenderIcon</p>
-          <CalenderIcon />
-          <p>JobIcon</p>
-          <JobIcon />
-          <p>FlameIcon</p>
-          <FlameIcon />
-          <p>StarIcon</p>
-          <StarIcon />
-          <p>ShopIcon</p>
-          <ShopIcon />
-          <p>WarningIcon</p>
-          <WarningIcon />
-          <p>InstagramIcon</p>
-          <InstagramIcon />
-          <p>TwitterIcon</p>
-          <TwitterIcon />
-          <p>FacebookIcon</p>
-          <FacebookIcon />
-          <p>faint=true</p>
-          <ReadMoreIcon faint={true} />
-          <p>type='positive'</p>
-          <ReadMoreIcon type={'positive'} />
-          <p>type='warning'</p>
-          <ReadMoreIcon type={'warning'} />
-        </Group> */}
+          <h1>priceToString: {priceToString(30)}</h1>
+        </Group>
 
         <h1>Hooks</h1>
         <Group>
