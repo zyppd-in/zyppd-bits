@@ -9,6 +9,11 @@ export { PrimaryBtn, SecondaryBtn, IconBtn, Tab, Tabs } from './components/butto
 export { Spinner } from './components/spinners'
 export { ListItem, SubtleListItem } from './components/lists'
 export {
+    FacebookIcon,
+    InstagramIcon,
+    TwitterIcon
+} from './components/icons'
+export {
     Modal,
     Shade,
     Notification,

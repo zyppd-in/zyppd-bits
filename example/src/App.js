@@ -9,6 +9,9 @@ import {
   Progress, Pill, Checklist, TextArea,
   PaletteIcon, PeopleIcon, PlusIcon, ReadMoreIcon, useWindowSize,
   Footer, OneOffNotification, useCheck, ModalsContext, AddToCalendar, Skeleton,
+  FacebookIcon,
+  InstagramIcon,
+  TwitterIcon,
   priceToString
 } from 'zyppd-bits'
 // import MaterialIcon, { colorPalette } from 'material-icons-react';
@@ -828,6 +831,15 @@ const App = () => {
               Hello World
               <RightChevron></RightChevron>
             </SubtleListItem>
+          </div>
+        </Group>
+
+        <Group>
+          <h2 className="section-title">Icons</h2>
+          <div className="item">
+            <FacebookIcon />
+            <TwitterIcon />
+            <InstagramIcon />
           </div>
         </Group>
 

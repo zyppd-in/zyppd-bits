@@ -32,13 +32,10 @@ function Check({ isVisible, close, message, cb }) {
             }}
             title={message}
         >
-            {/* <h3>{message}</h3> */}
-
             <div
                 style={{
                     display: 'flex',
                     gap: '1em',
-                    // marginTop: '1em'
                 }}
             >
 
