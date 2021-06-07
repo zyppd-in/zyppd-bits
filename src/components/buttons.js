@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Spinner } from './spinners'
 import chroma from 'chroma-js'
 
-const Btn = styled.button`
+// Btn styles that apply to all buttons
+const Btn = styled.button` 
     padding: .5em 1em;
     border: none; 
     font-size: 1em;
@@ -20,7 +21,6 @@ const Btn = styled.button`
     justify-content: center;
     text-align: center;
     
-   
         &.with-icon-first{
           svg {
             margin-right: .5em;
@@ -32,9 +32,7 @@ const Btn = styled.button`
             margin-left: .5em;
           }
         }
-        
-        
-        
+               
     &.disabled{
         border: ${({ theme }) => `2px solid ${theme.middleground}`};
         box-shadow: none;
@@ -42,6 +40,7 @@ const Btn = styled.button`
         cursor: auto;
         pointer-events: none;
       }
+
     &.fullWidth{
       width: 100%;
         span{
@@ -93,15 +92,11 @@ span{
 
 const PBtn = styled(Btn)`
 
-    background: ${({ theme, type }) => {
-    return !type ?
-      theme.brandColor
-      : theme.stateColors[type]
-  }};
+    background: ${({ theme, type }) => !type ? theme.brandColor : theme.stateColors[type]};
 
-  svg path {
-    fill:  ${({ theme }) => chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke'}
-  }
+    svg path {
+      fill:  ${({ theme }) => chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke'}
+    }
 
     color: ${({ theme }) => chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke'};
 
@@ -139,6 +134,7 @@ export const PrimaryBtn = (props) => {
     if (BtnEl.current.firstChild && BtnEl.current.firstChild.tagName === 'svg') {
       BtnEl.current.classList.add('with-icon-first')
     }
+
     if (BtnEl.current.lastChild && BtnEl.current.lastChild.tagName === 'svg') {
       BtnEl.current.classList.add('with-icon-last')
     }
@@ -160,11 +156,6 @@ export const PrimaryBtn = (props) => {
 
         </React.Fragment>
       }
-      {/* {props.waiting === false && 
-
-
-        } */}
-
     </PBtn>
   )
 }
@@ -175,9 +166,7 @@ const SBtn = styled(Btn)`
     background: ${({ theme }) => theme.foreground};
     box-shadow: none;  
     border: ${({ theme }) => `1px solid ${chroma(theme.middleground).darken(0.5)}`};
-
-
-    `
+`
 
 
 
@@ -218,11 +207,6 @@ export const SecondaryBtn = (props) => {
           }
         </React.Fragment>
       }
-      {/* {props.waiting === false && 
-
-
-        } */}
-
     </SBtn>
   )
 }
@@ -245,27 +229,3 @@ export const Tab = styled.button`
   border-bottom: ${({ active, theme }) => active ? `.25em solid  ${theme.brandColor}` : `.25em solid ${theme.middleground}`};
   color: ${({ theme, active }) => active ? chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke' : theme.textColor};
 `
-
-// Not finished
-const IconButton = styled.button`
-background: none;
-border: none;
-
-`
-
-export const IconBtn = ({
-  children,
-  onClick,
-  disabled,
-  type,
-  style,
-}, rest) => {
-
-  return (
-    <IconButton style={style}>
-
-      {children}
-    </IconButton >
-  )
-}
-// export default PrimaryBtn

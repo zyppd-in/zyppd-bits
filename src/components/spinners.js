@@ -1,5 +1,3 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable prettier/prettier */
 import React from 'react'
 import styled from 'styled-components'
 
