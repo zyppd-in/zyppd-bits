@@ -20,8 +20,8 @@ const Li = styled(motion.li)`
         margin-right: 0;
     }
 
-
     cursor: ${({ onClick }) => onClick && 'pointer'};
+
     ${({ theme, notification }) => {
         return notification && notification.type !== '' && `
             &::before {
@@ -57,7 +57,6 @@ const Li = styled(motion.li)`
     }}
 `
 
-// box-shadow: ${({ theme }) => theme.shadow};
 export const ListItemStyle = styled(Li)`
         border: ${({ theme, isValidated }) => `.1rem solid ${chroma(theme.foreground).darken(0.3)}`};
         border-radius: ${({ theme }) => theme.borderRadius};
@@ -65,7 +64,6 @@ export const ListItemStyle = styled(Li)`
         background: ${({ theme }) => theme.foreground};
         transition: box-shadow .2s ease;
 
-    
         ${({ type, theme }) => {
         return type === 'disabled' ?
             ` 
@@ -79,8 +77,6 @@ export const ListItemStyle = styled(Li)`
     svg path, svg circle {
         fill: ${({ theme, type }) => type === 'warning' ? theme.stateColors.warning : ''};
     }
-
-    
 `
 
 export const SubtleListItemStyle = styled(Li)`
@@ -97,11 +93,9 @@ export const ListItem = (props) => {
     const listEl = useRef(null)
 
     useEffect(() => {
-
         if (listEl.current.lastChild.tagName === 'svg') {
             listEl.current.classList.add('with-icon-last')
         }
-
     }, [])
 
     return (
@@ -112,7 +106,6 @@ export const ListItem = (props) => {
 }
 
 export const SubtleListItem = (props) => {
-
 
     const listEl = useRef(null)
     const active = props.active || false
