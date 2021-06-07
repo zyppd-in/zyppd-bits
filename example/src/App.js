@@ -893,7 +893,7 @@ const App = () => {
 
       <Skeleton />
 
-      <Footer />
+      <Footer color="red" business="olly" />
     </ZyppdComponents >
   )
 }

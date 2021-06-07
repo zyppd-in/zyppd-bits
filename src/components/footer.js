@@ -16,20 +16,20 @@ const FooterStyles = styled.footer`
         justify-content: center;
     }
     .title{
-        color: #43E896;
+        color: ${({ color }) => color};
     }
 
 `
 
-export function Footer() {
+export function Footer({ business = 'zyppd.in', color = '#43E896' }) {
     return (
-        <FooterStyles>
+        <FooterStyles color={color}>
             <div className="title">
                 <a href="https://zyppd.in">
-                    <h3>zyppd.in</h3>
+                    <h3>{business}</h3>
                 </a>
             </div>
-            <p className="copyright">&copy; {new Date().getFullYear()} zyppd.in</p>
+            <p className="copyright">&copy; {new Date().getFullYear()} {business}</p>
         </FooterStyles>
     )
 }

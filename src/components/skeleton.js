@@ -12,11 +12,7 @@ const gradientAnimation = keyframes`
     100%{
         opacity: 0.2;
     }
-    `
-// 0%{background-position:14% 0%}
-// 50%{background-position:87% 100%}
-// 100%{background-position:14% 0%}
-
+`
 
 const widthAnimation = keyframes`
   from {

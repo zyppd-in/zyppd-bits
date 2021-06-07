@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
-// import { RightChevron, LeftChevron } from './icons'
 import { Spinner } from './spinners'
 import chroma from 'chroma-js'
 

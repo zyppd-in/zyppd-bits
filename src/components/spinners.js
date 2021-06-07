@@ -3,11 +3,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-// const Dot = styled.div`
-//     height: 20px;
-//     width: 20px;
-//     background: red
-// `
 export function Spinner({ style }) {
 
   return (

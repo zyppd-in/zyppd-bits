@@ -84,13 +84,12 @@ export const ListItemStyle = styled(Li)`
 `
 
 export const SubtleListItemStyle = styled(Li)`
-padding: 1em;
-background: ${({ theme }) => theme.middleground};
-border - bottom: 1px solid lightgrey;
-${({ active, theme }) => active === true && `
-            font-weight: 500;
-            color: ${theme.brandColor};
-        `}
+    padding: 1em;
+    background: ${({ theme }) => theme.middleground};
+    ${({ active, theme }) => active === true && `
+        font-weight: 500;
+        color: ${theme.brandColor};
+    `}
 `
 
 export const ListItem = (props) => {

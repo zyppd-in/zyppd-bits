@@ -3,7 +3,6 @@ import chroma from 'chroma-js'
 
 const commonStyles = {
     shadow: '0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.10), 0 4px 4px rgba(0,0,0,0.05);',
-    // shadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
     expandedShadow: '0 7px 18px rgba(0,0,0,0.1), 0 4px 5px rgba(0,0,0,0.15)',
     warning: '#db3a32',
     borderRadius: '.2em'
