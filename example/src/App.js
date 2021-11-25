@@ -4,7 +4,7 @@ import chroma from 'chroma-js'
 
 import {
   Themes, themeCreator, H1, H2, H3, H4, H5, P, Subtitle, Title, PrimaryBtn, SecondaryBtn, Tabs, Tab, Spinner, useToast,
-  IconBtn, Modal, Notification, Message, Group, ZyppdComponents, ListItem, SubtleListItem,
+  Modal, Notification, Message, Group, ZyppdComponents, ListItem, SubtleListItem,
   Input, Checkbox, Select, Option,
   Progress, Pill, Checklist, TextArea,
   PaletteIcon, PeopleIcon, PlusIcon, ReadMoreIcon, useWindowSize,
@@ -210,7 +210,7 @@ const App = () => {
           <H5>H5</H5>
           <P>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit
-          {/* {'...'} */}
+            {/* {'...'} */}
           </P>
 
         </Group>
@@ -338,7 +338,7 @@ const App = () => {
               onClick={() => setWaiting(!waiting)}
             >
               Hello world
-              </PrimaryBtn>
+            </PrimaryBtn>
           </div>
           <div className="item">
             {/* <p>waiting=true // click to toggle (also toggles disabled prop)</p> */}
@@ -623,6 +623,7 @@ const App = () => {
               isClearable={true}
               options={options}
               message='Message Prop'
+              onChange={() => console.log(this)}
             />
             <p>IsDisabled=true</p>
             <Select
@@ -689,8 +690,8 @@ const App = () => {
               type="warning"
             >
               <WarningIcon />
-                Payout updates needed
-                <RightChevron />
+              Payout updates needed
+              <RightChevron />
             </ListItem>
 
             <ListItem
@@ -868,13 +869,13 @@ const App = () => {
 
         <Group>
           type="warning"
-            <Group type="warning">
+          <Group type="warning">
             A warning group
-            </Group>
+          </Group>
           type="negative"
-            <Group type="negative">
+          <Group type="negative">
             A negative group
-            </Group>
+          </Group>
         </Group>
         <OneOffNotification name="notified_of_cookies">
           <p>
@@ -885,7 +886,7 @@ const App = () => {
           <p>
             <a href="https://zyppd.in/cookies/" target="_blank" rel="noopener noreferrer">
               cookie policy
-          </a>
+            </a>
 
           </p>
         </OneOffNotification>

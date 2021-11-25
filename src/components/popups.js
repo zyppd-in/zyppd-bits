@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PrimaryBtn, SecondaryBtn } from '../components/buttons'
-import { Cross } from '../components/icons'
+import { CloseRounded as Cross } from '@material-ui/icons'
 import { useLocalStorage } from '../hooks'
+import { H2 } from '../components/typography'
 
 const ModalStyles = styled(motion.div)`
     background: ${({ theme }) => theme.foreground};
@@ -61,11 +62,19 @@ export const Modal = ({ children, isVisible, title, shade, close = false, style 
                 >
                     <ModalHeader hasClose={!!close}>
                         {!!close &&
-                            <div onClick={close}>
-                                <Cross faint={true} />
-                            </div>
+                            <button
+                                onClick={close}
+                                aria-label="Close Modal"
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    margin: '0', padding: '0'
+                                }}
+                            >
+                                <Cross />
+                            </button>
                         }
-                        {title && <h2>{title}</h2>}
+                        {title && <H2>{title}</H2>}
                     </ModalHeader>
                     {children}
                 </ModalStyles>
@@ -75,15 +84,17 @@ export const Modal = ({ children, isVisible, title, shade, close = false, style 
 }
 const ModalHeader = styled.div`
     display: flex;
-    svg {
-            margin-top: .25em;
-    }
+    margin-bottom: .5em;
     svg path {
             fill: ${({ theme }) => theme.textColor};
+    }
+    svg {
+        margin-top: .25em;
     }
     h2 {
         display: inline-block;
         margin-left: ${({ hasClose }) => hasClose ? '.5em' : '0'};
+        margin-bottom: 0;
         align-self: center;
     }
 `

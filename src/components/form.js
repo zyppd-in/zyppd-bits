@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import SelectStart from 'react-select';
 import { Themes } from '../theme/themes'
 import chroma from 'chroma-js';
-import { RightArrow, RightChevron, Tick, Cross, LeftChevron, SwapHorizontle, DownChevron, EditIcon } from './icons'
+import {
+    CheckRounded as Tick,
+    EditRounded as EditIcon
+} from '@material-ui/icons';
+import { ChromePicker, } from 'react-color'
 import { useLocalStorage } from '../hooks'
 import { PrimaryBtn } from './buttons';
 
@@ -45,7 +49,6 @@ const Field = styled.div`
     background: ${({ theme }) => theme.foreground};
     &:hover, &:focus-within{
         background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-        box-shadow: ${({ theme }) => theme.expandedShadow};
     }
     svg:not(.no-margin-right) {
         margin-right: .5em
@@ -299,7 +302,6 @@ const TextAreaStyles = styled.textarea`
     color: ${({ theme }) => theme.textColor};
     &:hover, &:focus-within{
         background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-        box-shadow: ${({ theme }) => theme.expandedShadow};
     }
     
 `
@@ -398,15 +400,16 @@ const SelectContainer = styled.div`
             }
             &:hover, &:focus-within{
                 background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-                box-shadow: ${({ theme }) => theme.expandedShadow};
             }
         }
-        .zypdd__menu {
+        .zyppd__menu {
             border-radius: ${({ theme }) => theme.borderRadius};
             background: ${({ theme }) => theme.foreground};
             background: red;
             border: none;
             padding: 1em;
+            position: relative;
+            z-index: 12;
         }
         .zyppd__option{
             padding: 1em;
@@ -416,7 +419,6 @@ const SelectContainer = styled.div`
           
             &:hover {
                 background: ${({ theme }) => chroma(theme.foreground).darken(0.2)};
-                // background: ${({ theme }) => theme.middleground};
             }
             &--is-focused{
                 background: ${({ theme }) => theme.middleground};
@@ -568,4 +570,4 @@ export const Checklist = ({ options, onClick }) => {
             {label}
         </CheckBtnStyle>
     )
-}   
+}
