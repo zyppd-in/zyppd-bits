@@ -6,8 +6,7 @@ import { ChevronRightRounded as RightChevron, ExpandMoreRounded as DownChevron }
 const Summary = styled.summary`
     display: flex;
     align-items: center;
-    // margin-bottom: ${({ open }) => open ? '1em' : '0'}; 
-
+    font-weight: 500;
 `
 const Details = styled.details`
     padding: 1em .5em 1em .5em; 
@@ -20,15 +19,15 @@ const Details = styled.details`
     border: ${({ theme }) => `.1rem solid ${chroma(theme.foreground).darken(0.3)}`};
     border-radius: ${({ theme }) => theme.borderRadius};
 `
-export const Accordion = ({ }) => {
+export const Accordion = ({ title, children }) => {
 
     const [open, setOpen] = useState(false);
 
     return (
         <Details>
-            <Summary open={open} onClick={() => setOpen(!open)}>{!open ? <RightChevron /> : <DownChevron />}Title</Summary>
+            <Summary open={open} onClick={() => setOpen(!open)}>{!open ? <RightChevron /> : <DownChevron />}{title}</Summary>
             <hr />
-            content
+            {children}
         </Details>
     )
 }

@@ -471,7 +471,11 @@ const App = () => {
 
         <Group>
           <h2 className="section-title">Accordion</h2>
-          <Accordion />
+          <Accordion title="Accordion">
+            <ListItem>
+              List item in an accordion
+            </ListItem>
+          </Accordion>
         </Group>
 
         <Group>
