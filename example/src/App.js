@@ -12,7 +12,8 @@ import {
   FacebookIcon,
   InstagramIcon,
   TwitterIcon,
-  priceToString
+  priceToString,
+  Accordion
 } from 'zyppd-bits'
 // import MaterialIcon, { colorPalette } from 'material-icons-react';
 
@@ -468,6 +469,10 @@ const App = () => {
 
         </Group>
 
+        <Group>
+          <h2 className="section-title">Accordion</h2>
+          <Accordion />
+        </Group>
 
         <Group>
           <h2 className="section-title">Spinners</h2>

@@ -20,6 +20,9 @@ export {
     OneOffNotification
 } from './components/popups'
 export {
+    Accordion
+} from './components/accordion'
+export {
     Input,
     inputValidation,
     Select,
