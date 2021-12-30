@@ -11,6 +11,9 @@ export const priceToString = (amount, currency = 'gbp') => {
         case 'usd':
             currencyToken = '$'
             break;
+        case 'eur':
+            currencyToken = '€'
+            break;
         default:
             currencyToken = '£'
     }

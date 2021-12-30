@@ -7,16 +7,6 @@ import { ExpandMoreRounded } from '@material-ui/icons'
 export function Select({ message, style, options, name, label = "select", onChange = () => { }, defaultValue = null }, props) {
 
     const [selectedItem, setSelectedItem] = useState(defaultValue || false);
-    // useEffect(() => {
-
-    //     if (defaultValue) return
-    //     options.unshift({
-    //         value: false,
-    //         label: 'Select...'
-    //     })
-
-    //     setSelectedItem(options[0])
-    // }, [])
 
     function handleChange(e) {
         const matchedOption = options.find(option => option.value === e.target.value)

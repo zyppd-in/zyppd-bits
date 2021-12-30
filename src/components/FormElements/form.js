@@ -26,239 +26,6 @@ export const Progress = styled.progress`
     }
 `
 
-
-
-
-// export function inputValidation(type, value) {
-//     if (!type || !value) return
-//     let validated = false;
-//     if (type === 'email') {
-//         return validated = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
-//     }
-//     if (type === 'text') {
-//         return validated = value.length > 1
-//     }
-//     if (type === 'tel') {
-//         return validated = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)
-//     }
-
-//     if (type === 'password') {
-//         return validated = value.length > 5
-//     }
-
-//     return validated
-// }
-
-
-
-// export function Input({
-//     children,
-//     type,
-//     placeholder,
-//     name = '',
-//     handleInput = () => { },
-//     message,
-//     validationNeeded = true,
-//     className,
-//     useStorage = false,
-//     value,
-//     disabled = false,
-//     needsEditing = false,
-//     confirm = () => { }
-// }
-//     , props) {
-
-//     console.log("confirm", confirm);
-//     const [isValidated, setIsValidated] = useState(false);
-//     const [val, setVal] = useState()
-//     const [storageVal, setStorageVal] = useLocalStorage(name || 'placeholder')
-//     const [hasIcon, setHasIcon] = useState(false)
-//     const [input, setInput] = useState()
-//     function handleChange(e) {
-//         if (disabled) return;
-//         // name && useStorage && 
-//         if (name && useStorage) {
-//             setStorageVal(e.target.value)
-//             setVal(e.target.value)
-//         } else {
-//             setVal(e.target.value)
-//         }
-//         if (validationNeeded) {
-//             setIsValidated(inputValidation(e.target.type, e.target.value))
-//             return handleInput(e, inputValidation(e.target.type, e.target.value))
-//         }
-//         return handleInput(e, true)
-//     }
-
-//     useEffect(() => {
-//         if (!type) return
-//         validationNeeded && setIsValidated(inputValidation(type, val))
-//     }, [val, type])
-
-//     const InputEl = useRef(null)
-
-//     useEffect(() => {
-//         setVal(value)
-//         if (name && useStorage) {
-//             storageVal && setVal(storageVal)
-//         }
-
-//         if (InputEl.current.firstChild && InputEl.current.firstChild.tagName === 'svg') {
-//             setHasIcon(true)
-//         }
-
-//     }, [])
-
-
-//     function handleConfirmation(key) {
-//         if (key !== 'Enter') return
-//         confirm()
-//     }
-
-//     return (
-//         <div>
-//             {message &&
-//                 <label htmlFor={name} style={{
-//                     margin: '.25em .5em'
-//                 }}>{message}</label>
-//             }
-
-//             <div
-//                 ref={InputEl}
-//                 disabled={disabled}
-//                 isValidated={isValidated}
-//                 validationNeeded={validationNeeded}
-//                 needsEditing={needsEditing}
-//                 className={`
-//                 border-2 border-background transition relative rounded-lg w-full p-1 flex items-center ${hasIcon ? styles.hasIcon : null}
-//                 ${needsEditing && `${styles.needsEditing} border-warning`}
-//                 ${isValidated && `border-success`}
-//                 `}
-//                 aria-label={`Update ${name}`}
-//                 data-validated={isValidated}
-//             >
-//                 {children}
-//                 <input
-//                     value={val}
-//                     className="input p-1 w-full bg-foreground rounded-md"
-//                     type={type}
-//                     name={name}
-//                     placeholder={placeholder}
-//                     onChange={handleChange}
-//                     {...props}
-//                     required={validationNeeded ? true : false}
-//                     onKeyDown={e => handleConfirmation(e.key)}
-//                 // onKeyDown={e => console.log(e.key)}
-//                 />
-
-//             </div>
-//         </div>
-//     )
-// }
-
-
-
-// export function TextArea({
-//     children,
-//     type,
-//     placeholder,
-//     name = '',
-//     handleInput = () => { },
-//     message,
-//     className,
-//     value = "",
-//     disabled = false,
-// }, props) {
-
-//     const [val, setVal] = useState(value)
-//     function handleChange(e) {
-//         handleInput(e)
-//         setVal(e.target.value)
-//     }
-//     return (
-//         <div class="my-2">
-//             {message &&
-//                 <label htmlFor={name} class="my-1 mx-2">{message}</label>
-//             }
-//             <div>
-//                 <textarea
-//                     name={name}
-//                     placeholder={placeholder}
-//                     onChange={handleChange}
-//                     value={val}
-//                     className={`w-full radius-lg bg-foreground p-2`}
-//                     style={{
-//                         minHeight: '10rem'
-//                     }}
-//                     {...props}
-//                 >
-
-//                 </textarea>
-//             </div>
-//         </div>
-//     )
-// }
-
-
-
-const SelectContainer = styled.div`
-    .select{   
-        position: relative;
-        z-index: 11;
-        .zyppd__control{
-            border-radius: ${({ theme }) => theme.borderRadius};
-            border: ${({ theme }) => `.1rem solid ${chroma(theme.foreground).darken(0.3)}`};
-            background: ${({ theme }) => theme.foreground};
-            padding: 0rem;
-            box-shadow: ${({ theme }) => theme.shadow};
-            ${({ isDisabled }) => {
-        return isDisabled ? `
-                box-shadow: none;
-                opacity: .5;
-                ` : null
-    }}
-            transition: .2s ease-in-out;
-            &--is-focused{
-                outline: inherit;
-            }
-            &:hover, &:focus-within{
-                background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-            }
-        }
-        .zyppd__menu {
-            border-radius: ${({ theme }) => theme.borderRadius};
-            background: ${({ theme }) => theme.foreground};
-            border: none;
-            padding: 1em;
-            position: relative;
-            z-index: 12;
-        }
-        .zyppd__option{
-            padding: 1em;
-            background: ${({ theme }) => theme.foreground};
-            color: ${({ theme }) => theme.textColor};
-            border: none;
-          
-            &:hover {
-                background: ${({ theme }) => chroma(theme.foreground).darken(0.2)};
-            }
-            &--is-focused{
-                background: ${({ theme }) => theme.middleground};
-            }
-        }
-        .zyppd__single-value{
-            color:  ${({ theme }) => theme.textColor};
-        }
-        .zyppd__indicator svg path {
-            fill:  ${({ theme }) => theme.textColor};
-        }
-
-    }
-    p {
-        margin: .2em .6em;
-    }
-`
-
 const Check = styled.label`
     display: block;
     position: relative;
@@ -307,29 +74,23 @@ const Check = styled.label`
     
 
 `
-export function Checkbox(props, { label, checked, onClick, name }) {
+export function Checkbox({ label, checked, onClick, name }, props) {
 
     function handleClick(e) {
+        console.log(checked, e.target)
         return onClick && onClick({ ...e, [e.target]: { ...e.target, value: props.checked } })
     }
     return (
-        <Check
-            checked={props.checked}
+        <label
+            class="form-check-label inline-block  cursor-pointer mb-2"
         >
-            {props.label}
             <input
-                name={props.name}
+                // checked
+                class="form-check-input h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2"
                 type="checkbox"
-                checked={props.checked}
-                value={props.checked}
-                onChange={(e) => handleClick(e)}
-                {...props}
-            >
-            </input>
-            <span className={`checkmark ${props.checked ? 'checked' : ''}`}>
-                <Tick />
-            </span>
-        </Check>
+                id={name} />
+            Default checkbox
+        </label>
     )
 }
 
