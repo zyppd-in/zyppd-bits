@@ -405,7 +405,6 @@ const SelectContainer = styled.div`
         .zyppd__menu {
             border-radius: ${({ theme }) => theme.borderRadius};
             background: ${({ theme }) => theme.foreground};
-            background: red;
             border: none;
             padding: 1em;
             position: relative;
