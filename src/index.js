@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import './index.css'
 export {
     ZyppdComponents,
     // ModalsContext 
