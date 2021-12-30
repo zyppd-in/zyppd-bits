@@ -30,7 +30,7 @@ export {
     Checkbox,
     Progress,
     TextArea
-} from './components/form'
+} from './components/FormElements/form'
 // export { useToasts } from 'react-toast-notifications'
 export { Message } from './components/messages'
 export { AddToCalendar } from './components/calendars'

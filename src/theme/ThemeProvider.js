@@ -46,7 +46,7 @@ function Check({ isVisible, close, message, cb }) {
                     style={{ marginRight: '.25em' }}
                 >
                     Cancel
-            </PrimaryBtn>
+                </PrimaryBtn>
                 <PrimaryBtn
                     type="positive"
                     fullWidth={true}
@@ -54,7 +54,7 @@ function Check({ isVisible, close, message, cb }) {
                     style={{ marginLeft: '.25em' }}
                 >
                     Confirm
-            </PrimaryBtn>
+                </PrimaryBtn>
             </div>
         </Modal>
         , document.body
@@ -82,6 +82,9 @@ function ModalsProvider(props) {
 export const ZyppdComponents = ({ brandColor = '#43E896', range = ["#fafafa", "#f7f7f7"], children, toastDuration = 2500, toastPosition = "bottom-center" }) => {
     if (range[0] === null, range[1] === null) range = ["#fafafa", "#f7f7f7"]
 
+    useEffect(() => {
+    Themes(brandColor, range)
+    }, [])
     const [checking, setChecking] = useState(false)
     return (
         <ThemeProvider theme={Themes(brandColor, range)}>

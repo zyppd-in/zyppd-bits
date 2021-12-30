@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import SelectStart from 'react-select';
-import { Themes } from '../theme/themes'
+import { Themes } from '../../theme/themes'
 import chroma from 'chroma-js';
 import {
     CheckRounded as Tick,
     EditRounded as EditIcon
 } from '@material-ui/icons';
 import { ChromePicker, } from 'react-color'
-import { useLocalStorage } from '../hooks'
-import { PrimaryBtn } from './buttons';
-
+import { useLocalStorage } from '../../hooks'
+import { PrimaryBtn } from '../buttons';
+import styles from './FormElements.module.scss'
 export const Progress = styled.progress`
     width: 100%; 
     height: 1em; 
@@ -29,6 +29,44 @@ export const Form = styled.form`
     width: 100%;
     max-width: 500px;
 `
+
+
+const InputField = styled.input`
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    background: none;
+    padding: 0.25rem 0;
+    width: 100%;
+    overflow: hidden;
+    font-size: 1em;
+    font: inherit;
+    
+    
+`
+
+
+
+export function inputValidation(type, value) {
+    if (!type || !value) return
+    let validated = false;
+    if (type === 'email') {
+        return validated = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+    }
+    if (type === 'text') {
+        return validated = value.length > 1
+    }
+    if (type === 'tel') {
+        return validated = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)
+    }
+
+    if (type === 'password') {
+        return validated = value.length > 5
+    }
+
+    return validated
+}
+
 
 const Field = styled.div`
     color: ${({ theme }) => theme.textColor};
@@ -98,7 +136,6 @@ const Field = styled.div`
                 color: ${chroma(theme.stateColors.warning).luminance() > 0.4 ? '#333;' : 'whitesmoke;'}
                 background: ${(theme.stateColors.warning)};
                 height: 20px;
-                
             }
         `
     }}
@@ -106,41 +143,6 @@ const Field = styled.div`
     
 `
 
-const InputField = styled.input`
-    border: none;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    color: ${({ theme }) => theme.textColor};
-    background: none;
-    padding: 0.25rem 0;
-    width: 100%;
-    overflow: hidden;
-    font-size: 1em;
-    font: inherit;
-    
-    
-`
-
-
-
-export function inputValidation(type, value) {
-    if (!type || !value) return
-    let validated = false;
-    if (type === 'email') {
-        return validated = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
-    }
-    if (type === 'text') {
-        return validated = value.length > 1
-    }
-    if (type === 'tel') {
-        return validated = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)
-    }
-
-    if (type === 'password') {
-        return validated = value.length > 5
-    }
-
-    return validated
-}
 
 export function Input({
     children,
@@ -154,17 +156,16 @@ export function Input({
     useStorage = false,
     value,
     disabled = false,
-    editable = false,
-    handleExit = false,
-    needsEditing = false
+    needsEditing = false,
+    confirm = () => {}
 }
     , props) {
 
-
+        console.log("confirm", confirm);
     const [isValidated, setIsValidated] = useState(false);
     const [val, setVal] = useState()
     const [storageVal, setStorageVal] = useLocalStorage(name || 'placeholder')
-
+    const [hasIcon, setHasIcon] = useState(false)
     const [input, setInput] = useState()
     function handleChange(e) {
         if (disabled) return;
@@ -196,115 +197,58 @@ export function Input({
         }
 
         if (InputEl.current.firstChild && InputEl.current.firstChild.tagName === 'svg') {
-            InputEl.current.classList.add('with-icon')
+            setHasIcon(true)
         }
 
     }, [])
 
 
+    function handleConfirmation(key){
+        if(key !== 'Enter') return 
+        confirm()
+    }
 
     return (
         <div>
             {message &&
-                <p style={{
+                <label htmlFor={name} style={{
                     margin: '.25em .5em'
-                }}>{message}</p>
+                }}>{message}</label>
             }
 
-            <Field
+            <div
                 ref={InputEl}
                 disabled={disabled}
                 isValidated={isValidated}
                 validationNeeded={validationNeeded}
-                editable={editable}
                 needsEditing={needsEditing}
+                className={`
+                border-2 border-background transition relative rounded-lg w-full p-1 flex items-center ${hasIcon ? styles.hasIcon : null}
+                ${needsEditing && `${styles.needsEditing} border-warning`}
+                ${isValidated && `border-success`}
+                `}
+                aria-label={`Update ${name}`}
+                data-validated={isValidated}
             >
                 {children}
-                <InputField
+                <input
                     value={val}
-                    className="input"
+                    className="input p-1 w-full bg-foreground rounded-md"
                     type={type}
                     name={name}
                     placeholder={placeholder}
                     onChange={handleChange}
                     {...props}
-                    onBlur={editable ? handleExit : null}
+                    required={validationNeeded ? true : false}
+                    onKeyDown={e => handleConfirmation(e.key)}
+                    // onKeyDown={e => console.log(e.key)}
                 />
-                {editable &&
-                    <React.Fragment>
-
-                        <PrimaryBtn
-                            className="confirm-icon "
-                            onClick={handleExit}
-                        >
-                            <Tick
-                                className="no-margin-right"
-                                faint={true}
-                            />
-                        </PrimaryBtn>
-
-                        <EditIcon
-                            className="edit-icon no-margin-right"
-                            faint={true}
-                        />
-                    </React.Fragment>
-                }
-            </Field>
+                
+            </div>
         </div>
     )
 }
 
-const TextAreaContainer = styled.div`
-    position: relative;
-    .icons {
-        position: absolute;
-        top: .25em;
-        right: .25em;
-    }
-    .confirm-icon{
-        transition: .2s ease-out;
-        position: absolute;
-        right: .2em;
-        top: .2em;
-        transform: translateX(-1em);
-        padding: .3em;
-        opacity: 0;
-    }
-
-    ${({ editable }) =>
-        editable && `
-        box-shadow: none;
-        border: .1rem solid ${({ theme }) => theme.middleground};
-        &:focus-within{
-            .confirm-icon{
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            .edit-icon{
-                display: none;
-            }
-        }
-        `
-    }
-`
-const TextAreaStyles = styled.textarea`
-    transition: .2s ease;
-    width: 100%; 
-    border-radius: ${({ theme }) => theme.borderRadius};
-    min-height: 200px;
-    background: ${({ theme }) => theme.foreground}; 
-    border: ${({ theme }) => `.1rem solid ${chroma(theme.foreground).darken(0.3)}`};
-    box-shadow: ${({ theme, editable }) => editable !== true && theme.shadow};
-    padding: .5em; 
-    font-size: 1em; 
-    font-family: 'Quicksand';
-    resize: vertical;
-    color: ${({ theme }) => theme.textColor};
-    &:hover, &:focus-within{
-        background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-    }
-    
-`
 
 
 export function TextArea({
@@ -314,13 +258,9 @@ export function TextArea({
     name = '',
     handleInput = () => { },
     message,
-    validationNeeded = true,
     className,
-    useStorage = false,
     value = "",
     disabled = false,
-    editable = false,
-    handleExit = false
 }, props) {
 
     const [val, setVal] = useState(value)
@@ -329,50 +269,26 @@ export function TextArea({
         setVal(e.target.value)
     }
     return (
-        <React.Fragment>
+        <div class="my-2">
             {message &&
-                <p
-                    style={{
-                        margin: '.25em .5em'
-                    }}
-                >{message}</p>
+                <label htmlFor={name} class="my-1 mx-2">{message}</label>
             }
-            <TextAreaContainer
-                editable={editable}
-            >
-                {editable &&
-                    <div
-                        className="icons"
-                    >
-
-                        <PrimaryBtn
-                            className="confirm-icon"
-                            onClick={handleExit}
-                        >
-                            <Tick
-                                faint={true}
-                            />
-                        </PrimaryBtn>
-
-                        <EditIcon
-                            className="edit-icon"
-                            faint={true}
-                        />
-                    </div>
-                }
-
-                <TextAreaStyles
+            <div>
+                <textarea
                     name={name}
                     placeholder={placeholder}
                     onChange={handleChange}
                     value={val}
-                    onBlur={editable ? handleExit : null}
-                    editable={editable}
+                    className={`w-full radius-lg bg-foreground p-2`}
+                    style={{
+                        minHeight: '10rem'
+                    }}
+                    {...props}
                 >
 
-                </TextAreaStyles>
-            </TextAreaContainer>
-        </React.Fragment>
+                </textarea>
+            </div>
+        </div>
     )
 }
 

@@ -18,6 +18,7 @@ const stateColors = {
     default: '#323233'
 }
 
+export const getTextColor = (background) => chroma(background).luminance() > 0.4 ? '#333' : 'whitesmoke'
 
 export const Themes = (brandColor = "#43E896", range = ["white", "#ededed"]) => {
 
@@ -25,8 +26,19 @@ export const Themes = (brandColor = "#43E896", range = ["white", "#ededed"]) => 
         .mode('lch').colors(3)
 
     const mainColor = range ? range[0] : theme
-    let textColor = chroma(range[0]).luminance() > 0.4 ? '#333' : 'whitesmoke'
+    let textColor = getTextColor(range[0])
 
+    let root = document.documentElement;
+    console.log({root});
+    // root.addEventListener("mousemove", e => {
+    // root.style.setProperty('--mouse-x', e.clientX + "px");
+    // console.log(pallete[0])
+    root.style.setProperty('--color-foreground', pallete[0]);
+    root.style.setProperty('--color-middleground', pallete[1]);
+    root.style.setProperty('--color-background', pallete[2]);
+    root.style.setProperty('--color-brand', brandColor);
+    root.style.setProperty('--color-text', textColor);
+    // });
     return {
         ...commonStyles,
         pallete,
@@ -46,57 +58,58 @@ export const Themes = (brandColor = "#43E896", range = ["white", "#ededed"]) => 
 
 export const GlobalStyle = createGlobalStyle`
 
-    *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        list-style: none;
-    }
 
-    body, html{
-        padding: 0;
-        margin: 0;
-        background: whitesmoke;
-        font-family: Quicksand, Helvetica, sans-serif;
-        background: ${({ theme }) => theme.background};
-        color: ${({ theme }) => theme.textColor};
-        scroll-behavior: smooth;
-    }
-    
-    
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-    
-    svg{
-        min-height: 25px;
-        min-width: 25px;
-    }
-    p a {
-        text-decoration: underline;
-    }
-    
-    .zyppd-background{
-        background: rgb(67,232,150);
-        background: radial-gradient(
-        farthest-side at bottom left,
-        rgba(67,232,150,1), 
-        transparent
-        ),
-        radial-gradient(
-        farthest-corner at bottom right,
-        rgba(105, 50, 200, 1), 
-        rgba(67,232,150,1)
-        );
-
-    }
-
-    .zyppd__menu{
-        z-index: 40;
-        position: relative;
-    }
-    
 `
+// *{
+//     padding: 0;
+//     margin: 0;
+//     box-sizing: border-box;
+//     list-style: none;
+// }
+
+// body, html{
+//     padding: 0;
+//     margin: 0;
+//     background: whitesmoke;
+//     font-family: Quicksand, Helvetica, sans-serif;
+//     font-size: 100%;
+//     background: ${({ theme }) => theme.background};
+//     color: ${({ theme }) => theme.textColor};
+//     scroll-behavior: smooth;
+// }
+
+
+// a {
+//     color: inherit;
+//     text-decoration: none;
+// }
+
+// svg{
+//     min-height: 25px;
+//     min-width: 25px;
+// }
+// p a {
+//     text-decoration: underline;
+// }
+
+// .zyppd-background{
+//     background: rgb(67,232,150);
+//     background: radial-gradient(
+//     farthest-side at bottom left,
+//     rgba(67,232,150,1), 
+//     transparent
+//     ),
+//     radial-gradient(
+//     farthest-corner at bottom right,
+//     rgba(105, 50, 200, 1), 
+//     rgba(67,232,150,1)
+//     );
+
+// }
+
+// .zyppd__menu{
+//     z-index: 40;
+//     position: relative;
+// }
 
 

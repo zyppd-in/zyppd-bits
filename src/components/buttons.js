@@ -90,9 +90,10 @@ span{
   }}
 `
 
+// background: ${({ theme, type }) => !type ? theme.brandColor : theme.stateColors[type]};
 const PBtn = styled(Btn)`
 
-    background: ${({ theme, type }) => !type ? theme.brandColor : theme.stateColors[type]};
+    background: var(--color-brand);
 
     svg path {
       fill:  ${({ theme }) => chroma(theme.brandColor).luminance() > 0.4 ? '#333' : 'whitesmoke'}

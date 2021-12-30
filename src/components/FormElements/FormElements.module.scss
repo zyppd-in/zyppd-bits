@@ -1,0 +1,16 @@
+.hasIcon {
+    svg {
+        @apply mr-2;
+    }
+}
+
+.needsEditing{
+    &::before{
+        content: 'Needs Updating';
+        @apply absolute py-1 px-2 right-2 rounded-t-md text-sm;
+        top: -2px;
+        transform: translate(0, -100%);
+        background-color: var(--color-warning);
+        color: var(--color-text-dark)
+    }
+}
