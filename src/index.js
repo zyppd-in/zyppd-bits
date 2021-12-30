@@ -24,13 +24,12 @@ export {
     Accordion
 } from './components/accordion'
 export {
-    Input,
-    inputValidation,
-    Select,
     Checkbox,
-    Progress,
-    TextArea
+    Progress
 } from './components/FormElements/form'
+export { Input, inputValidation } from './components/FormElements/Input'
+export { TextArea } from './components/FormElements/TextArea'
+export { Select } from './components/FormElements/Select'
 // export { useToasts } from 'react-toast-notifications'
 export { Message } from './components/messages'
 export { AddToCalendar } from './components/calendars'

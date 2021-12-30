@@ -169,19 +169,15 @@ const App = () => {
         </div>
 
 
-
-        <Select
-          isSearchable={true}
-          isClearable={true}
-          options={options}
-          message='Message Prop'
-        />
-        <Select
-          isSearchable={true}
-          isClearable={true}
-          options={options}
-          message='Message Prop'
-        />
+        <Group id="#select">
+          <h1>Select</h1>
+          <Select
+            isSearchable={true}
+            isClearable={true}
+            options={options}
+            message='Message Prop'
+          />
+        </Group>
         <Group>
           <h1>Docs</h1>
           <p>Zyppd Components provides components and default global styles relative to the chosen theme.</p>
@@ -625,7 +621,7 @@ const App = () => {
             /> */}
           </div>
 
-          <div className="item">
+          <Group className="item" id="select">
             <h4>Select</h4>
             <Select
               isSearchable={true}
@@ -633,6 +629,7 @@ const App = () => {
               options={options}
               message='Message Prop'
               onChange={() => console.log(this)}
+              defaultValue={options[1]}
             />
             <p>IsDisabled=true</p>
             <Select
@@ -640,6 +637,7 @@ const App = () => {
               isSearchable={true}
               isClearable={true}
               options={options}
+              onChange={(e) => console.log("CHHH", e)}
             />
 
 
@@ -659,7 +657,7 @@ const App = () => {
               />
 
             </div>
-          </div>
+          </Group>
 
           <div className="item">
             <h4>Checkbox</h4>

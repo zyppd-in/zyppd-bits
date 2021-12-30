@@ -29,10 +29,7 @@ export const Themes = (brandColor = "#43E896", range = ["white", "#ededed"]) => 
     let textColor = getTextColor(range[0])
 
     let root = document.documentElement;
-    console.log({root});
-    // root.addEventListener("mousemove", e => {
-    // root.style.setProperty('--mouse-x', e.clientX + "px");
-    // console.log(pallete[0])
+
     root.style.setProperty('--color-foreground', pallete[0]);
     root.style.setProperty('--color-middleground', pallete[1]);
     root.style.setProperty('--color-background', pallete[2]);

@@ -50,6 +50,7 @@
     "dist"
   ],
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
     "@material-ui/icons": "^4.11.2",
     "chroma-js": "^2.1.1",
     "dompurify": "^2.2.7",

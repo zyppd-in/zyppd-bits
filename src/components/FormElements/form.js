@@ -11,6 +11,7 @@ import { ChromePicker, } from 'react-color'
 import { useLocalStorage } from '../../hooks'
 import { PrimaryBtn } from '../buttons';
 import styles from './FormElements.module.scss'
+
 export const Progress = styled.progress`
     width: 100%; 
     height: 1em; 
@@ -25,272 +26,178 @@ export const Progress = styled.progress`
     }
 `
 
-export const Form = styled.form`
-    width: 100%;
-    max-width: 500px;
-`
-
-
-const InputField = styled.input`
-    border: none;
-    border-radius: var(--border-radius);
-    color: var(--color-text);
-    background: none;
-    padding: 0.25rem 0;
-    width: 100%;
-    overflow: hidden;
-    font-size: 1em;
-    font: inherit;
-    
-    
-`
 
 
 
-export function inputValidation(type, value) {
-    if (!type || !value) return
-    let validated = false;
-    if (type === 'email') {
-        return validated = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
-    }
-    if (type === 'text') {
-        return validated = value.length > 1
-    }
-    if (type === 'tel') {
-        return validated = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)
-    }
+// export function inputValidation(type, value) {
+//     if (!type || !value) return
+//     let validated = false;
+//     if (type === 'email') {
+//         return validated = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+//     }
+//     if (type === 'text') {
+//         return validated = value.length > 1
+//     }
+//     if (type === 'tel') {
+//         return validated = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)
+//     }
 
-    if (type === 'password') {
-        return validated = value.length > 5
-    }
+//     if (type === 'password') {
+//         return validated = value.length > 5
+//     }
 
-    return validated
-}
-
-
-const Field = styled.div`
-    color: ${({ theme }) => theme.textColor};
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: ${({ theme }) => theme.shadow};
-    padding: .5rem;
-    height: 3rem;
-    transition: .2s ease;
-    border: ${({ theme, isValidated }) => `.1rem solid ${chroma(theme.foreground).darken(0.3)}`};
-    border-color:  ${({ theme, isValidated }) => {
-        return isValidated ? theme.stateColors.success : chroma(theme.foreground).darken(0.3)
-    }};
-    background: ${({ theme }) => theme.foreground};
-    &:hover, &:focus-within{
-        background: ${({ theme }) => chroma(theme.foreground).brighten(0.5)};
-    }
-    svg:not(.no-margin-right) {
-        margin-right: .5em
-    }
-
-    .confirm-icon{
-        transition: .2s ease-out;
-        position: absolute;
-        right: .2em;
-        top: .2em;
-        transform: translateX(-1em);
-        padding: .3em;
-        opacity: 0;
-    }
-
-    ${({ editable }) =>
-        editable && `
-        box-shadow: none;
-        border: 1px solid ${({ theme }) => theme.middleground};
-        &:focus-within{
-            .confirm-icon{
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            .edit-icon{
-                display: none;
-            }
-        }
-        `
-    }
-
-    ${({ needsEditing, theme }) => {
-        return needsEditing && `
-        
-            border: .1rem solid ${chroma(theme.stateColors.warning)};
-            &::before{
-                content: 'Needs Updating';
-                position: absolute;
-                font-size: 80%;
-                font-weight: 500;
-                z-index: -1;
-                top: 0;
-                transform: translate(0, calc(-100% - 0rem));
-                right: .5em;
-                padding: .2em 1em; 
-                border-radius: ${theme.borderRadius} ${theme.borderRadius} 0 0;
-                color: ${chroma(theme.stateColors.warning).luminance() > 0.4 ? '#333;' : 'whitesmoke;'}
-                background: ${(theme.stateColors.warning)};
-                height: 20px;
-            }
-        `
-    }}
-    
-    
-`
-
-
-export function Input({
-    children,
-    type,
-    placeholder,
-    name = '',
-    handleInput = () => { },
-    message,
-    validationNeeded = true,
-    className,
-    useStorage = false,
-    value,
-    disabled = false,
-    needsEditing = false,
-    confirm = () => {}
-}
-    , props) {
-
-        console.log("confirm", confirm);
-    const [isValidated, setIsValidated] = useState(false);
-    const [val, setVal] = useState()
-    const [storageVal, setStorageVal] = useLocalStorage(name || 'placeholder')
-    const [hasIcon, setHasIcon] = useState(false)
-    const [input, setInput] = useState()
-    function handleChange(e) {
-        if (disabled) return;
-        // name && useStorage && 
-        if (name && useStorage) {
-            setStorageVal(e.target.value)
-            setVal(e.target.value)
-        } else {
-            setVal(e.target.value)
-        }
-        if (validationNeeded) {
-            setIsValidated(inputValidation(e.target.type, e.target.value))
-            return handleInput(e, inputValidation(e.target.type, e.target.value))
-        }
-        return handleInput(e, true)
-    }
-
-    useEffect(() => {
-        if (!type) return
-        validationNeeded && setIsValidated(inputValidation(type, val))
-    }, [val, type])
-
-    const InputEl = useRef(null)
-
-    useEffect(() => {
-        setVal(value)
-        if (name && useStorage) {
-            storageVal && setVal(storageVal)
-        }
-
-        if (InputEl.current.firstChild && InputEl.current.firstChild.tagName === 'svg') {
-            setHasIcon(true)
-        }
-
-    }, [])
-
-
-    function handleConfirmation(key){
-        if(key !== 'Enter') return 
-        confirm()
-    }
-
-    return (
-        <div>
-            {message &&
-                <label htmlFor={name} style={{
-                    margin: '.25em .5em'
-                }}>{message}</label>
-            }
-
-            <div
-                ref={InputEl}
-                disabled={disabled}
-                isValidated={isValidated}
-                validationNeeded={validationNeeded}
-                needsEditing={needsEditing}
-                className={`
-                border-2 border-background transition relative rounded-lg w-full p-1 flex items-center ${hasIcon ? styles.hasIcon : null}
-                ${needsEditing && `${styles.needsEditing} border-warning`}
-                ${isValidated && `border-success`}
-                `}
-                aria-label={`Update ${name}`}
-                data-validated={isValidated}
-            >
-                {children}
-                <input
-                    value={val}
-                    className="input p-1 w-full bg-foreground rounded-md"
-                    type={type}
-                    name={name}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    {...props}
-                    required={validationNeeded ? true : false}
-                    onKeyDown={e => handleConfirmation(e.key)}
-                    // onKeyDown={e => console.log(e.key)}
-                />
-                
-            </div>
-        </div>
-    )
-}
+//     return validated
+// }
 
 
 
-export function TextArea({
-    children,
-    type,
-    placeholder,
-    name = '',
-    handleInput = () => { },
-    message,
-    className,
-    value = "",
-    disabled = false,
-}, props) {
+// export function Input({
+//     children,
+//     type,
+//     placeholder,
+//     name = '',
+//     handleInput = () => { },
+//     message,
+//     validationNeeded = true,
+//     className,
+//     useStorage = false,
+//     value,
+//     disabled = false,
+//     needsEditing = false,
+//     confirm = () => { }
+// }
+//     , props) {
 
-    const [val, setVal] = useState(value)
-    function handleChange(e) {
-        handleInput(e)
-        setVal(e.target.value)
-    }
-    return (
-        <div class="my-2">
-            {message &&
-                <label htmlFor={name} class="my-1 mx-2">{message}</label>
-            }
-            <div>
-                <textarea
-                    name={name}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    value={val}
-                    className={`w-full radius-lg bg-foreground p-2`}
-                    style={{
-                        minHeight: '10rem'
-                    }}
-                    {...props}
-                >
+//     console.log("confirm", confirm);
+//     const [isValidated, setIsValidated] = useState(false);
+//     const [val, setVal] = useState()
+//     const [storageVal, setStorageVal] = useLocalStorage(name || 'placeholder')
+//     const [hasIcon, setHasIcon] = useState(false)
+//     const [input, setInput] = useState()
+//     function handleChange(e) {
+//         if (disabled) return;
+//         // name && useStorage && 
+//         if (name && useStorage) {
+//             setStorageVal(e.target.value)
+//             setVal(e.target.value)
+//         } else {
+//             setVal(e.target.value)
+//         }
+//         if (validationNeeded) {
+//             setIsValidated(inputValidation(e.target.type, e.target.value))
+//             return handleInput(e, inputValidation(e.target.type, e.target.value))
+//         }
+//         return handleInput(e, true)
+//     }
 
-                </textarea>
-            </div>
-        </div>
-    )
-}
+//     useEffect(() => {
+//         if (!type) return
+//         validationNeeded && setIsValidated(inputValidation(type, val))
+//     }, [val, type])
+
+//     const InputEl = useRef(null)
+
+//     useEffect(() => {
+//         setVal(value)
+//         if (name && useStorage) {
+//             storageVal && setVal(storageVal)
+//         }
+
+//         if (InputEl.current.firstChild && InputEl.current.firstChild.tagName === 'svg') {
+//             setHasIcon(true)
+//         }
+
+//     }, [])
+
+
+//     function handleConfirmation(key) {
+//         if (key !== 'Enter') return
+//         confirm()
+//     }
+
+//     return (
+//         <div>
+//             {message &&
+//                 <label htmlFor={name} style={{
+//                     margin: '.25em .5em'
+//                 }}>{message}</label>
+//             }
+
+//             <div
+//                 ref={InputEl}
+//                 disabled={disabled}
+//                 isValidated={isValidated}
+//                 validationNeeded={validationNeeded}
+//                 needsEditing={needsEditing}
+//                 className={`
+//                 border-2 border-background transition relative rounded-lg w-full p-1 flex items-center ${hasIcon ? styles.hasIcon : null}
+//                 ${needsEditing && `${styles.needsEditing} border-warning`}
+//                 ${isValidated && `border-success`}
+//                 `}
+//                 aria-label={`Update ${name}`}
+//                 data-validated={isValidated}
+//             >
+//                 {children}
+//                 <input
+//                     value={val}
+//                     className="input p-1 w-full bg-foreground rounded-md"
+//                     type={type}
+//                     name={name}
+//                     placeholder={placeholder}
+//                     onChange={handleChange}
+//                     {...props}
+//                     required={validationNeeded ? true : false}
+//                     onKeyDown={e => handleConfirmation(e.key)}
+//                 // onKeyDown={e => console.log(e.key)}
+//                 />
+
+//             </div>
+//         </div>
+//     )
+// }
+
+
+
+// export function TextArea({
+//     children,
+//     type,
+//     placeholder,
+//     name = '',
+//     handleInput = () => { },
+//     message,
+//     className,
+//     value = "",
+//     disabled = false,
+// }, props) {
+
+//     const [val, setVal] = useState(value)
+//     function handleChange(e) {
+//         handleInput(e)
+//         setVal(e.target.value)
+//     }
+//     return (
+//         <div class="my-2">
+//             {message &&
+//                 <label htmlFor={name} class="my-1 mx-2">{message}</label>
+//             }
+//             <div>
+//                 <textarea
+//                     name={name}
+//                     placeholder={placeholder}
+//                     onChange={handleChange}
+//                     value={val}
+//                     className={`w-full radius-lg bg-foreground p-2`}
+//                     style={{
+//                         minHeight: '10rem'
+//                     }}
+//                     {...props}
+//                 >
+
+//                 </textarea>
+//             </div>
+//         </div>
+//     )
+// }
 
 
 
@@ -351,25 +258,6 @@ const SelectContainer = styled.div`
         margin: .2em .6em;
     }
 `
-
-export function Select(props, { style, options, name, label = "select", onChange = () => { }, }) {
-
-    return (
-        <SelectContainer isDisabled={props.isDisabled}>
-            {props.message && <p> {props.message}</p>}
-            <SelectStart
-                style={style}
-                options={options}
-                className='select'
-                classNamePrefix="zyppd"
-                onChange={onChange}
-                {...props}
-
-            />
-
-        </SelectContainer>
-    )
-}
 
 const Check = styled.label`
     display: block;
