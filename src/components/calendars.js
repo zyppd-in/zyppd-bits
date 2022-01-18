@@ -4,7 +4,6 @@ import {
     TodayRounded as CalenderIcon,
     ChevronRightRounded as RightChevron,
 } from '@material-ui/icons';
-import { ChromePicker, } from 'react-color'
 import { Modal } from './popups'
 import { ListItem } from './lists'
 

@@ -1,14 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
-import dompurify from 'dompurify'
 import chroma from 'chroma-js'
 
+
+
+import dompurify from 'dompurify'
 
 export const P = ({ children }) => {
   const sanitizer = dompurify.sanitize;
 
   children = typeof children === 'object' ? children.join('') : children
   return (
+    // children.replace(/\n/g, '<br/>') handles adding new paragraphs when appropriate by replacing the new line character '\n' with '<br/>'
+
+    // dompurify.santize prevents any code users may have entered from running, without this users could run JS code and really mess things up.
+    // Generally, try to avoid putting content in as HTML, but in this case we have to do so to get the line breaks.
     <p
       dangerouslySetInnerHTML={{ __html: sanitizer(children.replace(/\n/g, '<br/>')) }}
     >

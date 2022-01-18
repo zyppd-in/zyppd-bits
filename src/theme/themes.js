@@ -35,7 +35,7 @@ export const Themes = (brandColor = "#43E896", range = ["white", "#ededed"]) => 
     root.style.setProperty('--color-background', pallete[2]);
     root.style.setProperty('--color-brand', brandColor);
     root.style.setProperty('--color-text', textColor);
-    // });
+
     return {
         ...commonStyles,
         pallete,

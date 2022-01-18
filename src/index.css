@@ -7,6 +7,8 @@
     body {
         font-family: 'Quicksand', Helvetica, sans-serif;
     }
+
+    
     :root {
         --color-background: #fafafa;
         --color-middleground: #ededed;
@@ -40,6 +42,14 @@ body, html{
     background: var(--color-background);
     color: var(--color-text);
     scroll-behavior: smooth;
+}
+
+h1 {
+    @apply text-3xl mb-2
+}
+
+h2, h3 {
+    @apply text-lg
 }
 
 

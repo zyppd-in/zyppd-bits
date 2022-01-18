@@ -6,7 +6,7 @@ import {
   Themes, themeCreator, H1, H2, H3, H4, H5, P, Subtitle, Title, PrimaryBtn, SecondaryBtn, Tabs, Tab, Spinner, useToast,
   Modal, Notification, Message, Group, ZyppdComponents, ListItem, SubtleListItem,
   Input, Checkbox, Select, Option,
-  Progress, Pill, Checklist, TextArea,
+  Progress, Pill, TextArea,
   PaletteIcon, PeopleIcon, PlusIcon, ReadMoreIcon, useWindowSize,
   Footer, OneOffNotification, useCheck, ModalsContext, AddToCalendar, Skeleton,
   FacebookIcon,
@@ -181,15 +181,12 @@ const App = () => {
         <Group>
           <h1>Docs</h1>
           <p>Zyppd Components provides components and default global styles relative to the chosen theme.</p>
-          <br />
           <p>The project should be wrapped in ZyppdComponents to provide theme styles, a theme prop then accept the theme argument (Defaults to the light theme).
             <br />
             List of themes can be seen above in the buttons
           </p>
-          <br />
           <p>Current theme is passed down through ZyppdComponents and can be used just as a theme in styled components</p>
-          <br />
-          <h3>State Colors</h3>
+          <h2>State Colors</h2>
           <p>On some components the color can be changed to represent changes in the state, the type prop can be set to any value as defined in the themes.stateColors object (in themes.js)</p>
         </Group>
 
@@ -613,13 +610,6 @@ const App = () => {
             />
           </div>
 
-          <div className="item">
-            <h4>Checklist</h4>
-            {/* <Checklist
-              options={checklistOptions}
-              onChange={checklistChange}
-            /> */}
-          </div>
 
           <Group className="item" id="select">
             <h4>Select</h4>

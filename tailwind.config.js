@@ -14,6 +14,7 @@ module.exports = {
         success: '#43E896',
         error: '#E84747',
         foreground: 'var(--color-foreground)',
+        brand: 'var(--color-brand)',
         light: 'whitesmoke',
         dark: '#333'
       },
@@ -27,5 +28,6 @@ module.exports = {
 
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 }
