@@ -1,224 +1,89 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import styled from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
 import { PrimaryBtn, SecondaryBtn } from '../components/buttons'
 import { CloseRounded as Cross } from '@material-ui/icons'
 import { useLocalStorage } from '../hooks'
-import { H2 } from '../components/typography'
+import { useEffect } from 'react/cjs/react.development'
 
-const ModalStyles = styled(motion.div)`
-    background: ${({ theme }) => theme.foreground};
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: ${({ theme }) => theme.shadow};
-    z-index: 15;
-    padding: 1em;
-    margin: 0 1em;
-    width: 100%;
-    max-width: 600px; 
-    max-height: 90vh;
-    overflow: scroll;
-    h2 {
-        margin-bottom: .5em;
-    }
-`
 
-export const Shade = styled.div`
-    position: fixed;
-    z-index: 11;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0.3, 0.3, 0.3, 0.3);
-`
-const Container = styled.div`
-    display: flex; 
-    place-items: center;
-    justify-content: center;
-    align-items: center;
-    position: fixed; 
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 45;
-`
+
 export const Modal = ({ children, isVisible, title, shade, close = false, style }) => {
 
-    // console.log("close ", !!close())
-    return <AnimatePresence>
-        {isVisible &&
-            <Container>
-                {isVisible && shade && <Shade
-                    onClick={close}
-                ></Shade>}
-                <ModalStyles
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 50 }}
+    const container = useRef(null)
 
-                    style={style}
-                >
-                    <ModalHeader hasClose={!!close}>
-                        {!!close &&
-                            <button
-                                onClick={close}
-                                aria-label="Close Modal"
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    margin: '0', padding: '0'
-                                }}
-                            >
-                                <Cross />
-                            </button>
-                        }
-                        {title && <H2>{title}</H2>}
-                    </ModalHeader>
-                    {children}
-                </ModalStyles>
-            </Container>
-        }
-    </AnimatePresence >
-}
-const ModalHeader = styled.div`
-    display: flex;
-    margin-bottom: .5em;
-    svg path {
-            fill: ${({ theme }) => theme.textColor};
-    }
-    svg {
-        margin-top: .25em;
-    }
-    h2 {
-        display: inline-block;
-        margin-left: ${({ hasClose }) => hasClose ? '.5em' : '0'};
-        margin-bottom: 0;
-        align-self: center;
-    }
-`
-const ToastItemStyle = styled(motion.figure)`
-    margin-bottom: 1em;
-    padding: 1em;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    background: ${({ theme, type }) => theme.stateColors[type]};
-    font-weight: bold;
-    color: #333;
-    ${({ type }) => type === 'negative' && `
-        color: whitesmoke;
-    `}
-`
+    useEffect(() => {
+        const firstInput = container.current.querySelector('input')
+        firstInput && firstInput.focus()
+    }, [container.current, isVisible])
 
-export function ToastItem(props) {
-
-    return (
-        <ToastItemStyle
-            type={props.appearance}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
+    return ReactDOM.createPortal(
+        <div
+            ref={container}
+            aria-hidden={isVisible}
+            className={`${isVisible ? 'block' : 'hidden'} flex items-center justify-center z-50 fixed top-0 left-0 right-0 bottom-0`}
         >
-            {props.children}
-        </ToastItemStyle>
+            {isVisible && shade && <div
+                className='fixed z-10 top-0 left-0 right-0 bottom-0 bg-opacity-25 bg-gray-800'
+                onClick={close}
+            ></div>}
+            <div
+                className={`transition ${isVisible ? 'translate-y-3' : 'translate-y-6'} fadeIn bg-foreground rounded-lg shadow z-20 p-4 w-full max-w-2xl min-h-[50vh] max-h-screen`}
+            >
+                <div
+                    hasClose={!!close}
+                    className='flex mb-2'
+                >
+                    {!!close &&
+                        <button
+                            onClick={close}
+                            aria-label="Close Modal"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                margin: '0', padding: '0'
+                            }}
+                        >
+                            <Cross />
+                        </button>
+                    }
+                    {title && <h2 className='ml-2'>{title}</h2>}
+                </div>
+                {children}
+            </div>
+        </div>, document.body
     )
-
 }
 
-export const Notification = styled.div`
-    border: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    position: absolute;
-    top: -7.5px;
-    left: -7.5px;
-    background: red;
-    background: ${({ theme, type }) => theme.stateColors[type]};
-    color: ${({ theme }) => theme.textColor};
-    box-shadow: ${({ theme }) => theme.shadow};
-    font-weight: 500;
-    &:hover::after{
-            transform: scaleX(1);
-    }
-    &::before{
-            content: '';
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        :hover{
-            border: .1rem solid;
-        }
-    }
-    ${({ message, theme, type }) => {
-
-        return !!message && `
-            &::after{
-                content: '${message}';
-                position: absolute; 
-                border-radius: ${theme.borderRadius};
-                color: ${theme.textColor};
-                background: ${theme.stateColors[type]};
-                height: 25px; 
-                width: auto;
-                white-space: nowrap;
-                top: -12.5px;
-                left: 20px;
-                padding: .5em;
-                transform-origin: left;
-                transform: scaleX(0);
-                transition: .1s ease-out;
-            }
-        `
-    }}
-`
+export const Notification = ({ children }) => {
+    return (
+        <div className='border-2 border-warning radius-md p-2'>
+            {children}
+        </div>
+    )
+}
 
 
-const CookiesNotification = styled.div`
-    position: fixed;
-    bottom: 1em;
-    left: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: calc(100% - 2em);
-    max-width: 700px;
-    min-height: 50px;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    background: ${({ theme }) => theme.background};
-    box-shadow: ${({ theme }) => theme.shadow};
-    border: .1rem solid ${({ theme }) => theme.brandColor};
-    color: ${({ theme }) => theme.textColor};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    padding: 1em;
-    z-index: 50;
-    p {
-            font - size: 80%;
-    }
-`
-
-
-export const OneOffNotification = ({ children, name }) => {
+export const OneOffNotification = ({ title, children, name, cb }) => {
 
     const [value, setValue] = useLocalStorage(name)
+    console.log(value !== true)
 
+    const handleClick = () => {
+        setValue(true)
+        cb && cb()
+    }
     return !value && ReactDOM.createPortal(
-        <AnimatePresence>
-            <CookiesNotification>
+        <div className='fixed min-h-56 bottom-0 left-0 right-0 flex justify-center pb-2'>
+            <div className='min-h-50 bg-foreground shadow rounded-lg p-4'>
+                {title &&
+                    <h1>{title}</h1>
+                }
                 <div className="content">
                     {children}
                 </div>
-                <div
-                    style={{ marginTop: '1em' }}
-                >
-                    <PrimaryBtn onClick={() => setValue(true)}>No Problem</PrimaryBtn>
-                </div>
-            </CookiesNotification>
-        </AnimatePresence>
 
+                <PrimaryBtn className="mt-4" onClick={() => handleClick()}>No Problem</PrimaryBtn>
+            </div>
+        </div>
         , document.body)
 }

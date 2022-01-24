@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Listbox } from '@headlessui/react'
 import styles from './FormElements.module.scss'
 import { ExpandMoreRounded } from '@material-ui/icons'
 
@@ -27,7 +26,7 @@ export function Select({ message, style, options, name, label = "select", onChan
                     <option disabled selected value>Select...</option>
                     {options.map(option => {
                         return (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         )
                     })}
                 </select>

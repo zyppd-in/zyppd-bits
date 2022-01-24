@@ -16,7 +16,6 @@ export {
 } from './components/icons'
 export {
     Modal,
-    Shade,
     Notification,
     OneOffNotification
 } from './components/popups'

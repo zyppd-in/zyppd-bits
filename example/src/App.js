@@ -257,13 +257,14 @@ const App = () => {
 
           <div className="item">
             <p>With notifiation hidden // see list item notification for syntax</p>
+            <Notification
+              type='warning'
+            >
+              notification with a lot of text
+            </Notification>
             <PrimaryBtn
               type={'negative'}
             >
-              <Notification
-                type='warning'
-                message='notification with a lot of text'
-              />
 
               Hello world</PrimaryBtn>
           </div>
@@ -874,7 +875,7 @@ const App = () => {
             A negative group
           </Group>
         </Group>
-        <OneOffNotification name="notified_of_cookies">
+        <OneOffNotification title="Cookie policy" name="notified_of_cookies">
           <p>
             Like most websites, zyppd.in uses cookies to enhance your experience and make our platform better.
             <br /> We don't use cookies to track you, and we don't sell your data to third parties.
